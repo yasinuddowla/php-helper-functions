@@ -112,6 +112,24 @@ function removeKeys($arr, $keysToRemove = [])
 }
 ```
 
+## Amount to word in Bangla, Indian format
+
+```function amountToWord($amount)
+{
+    $amountParts = explode('.', $amount);
+    $rupees = (int) $amountParts[0];
+    $paisa = isset($amountParts[1]) ? (int) $amountParts[1] : 0;
+
+    $fmt = new NumberFormatter('en-IN', NumberFormatter::SPELLOUT);
+    $result = $fmt->format($rupees) . ' Taka';
+
+    if ($paisa > 0) {
+        $paisa_words = $fmt->format($paisa) . ' Paisa';
+        $result .= ' and ' . $paisa_words;
+    }
+    return ucwords($result);
+}```
+
 ## Generate random string of length N
 
 ```
